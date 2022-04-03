@@ -1,0 +1,18 @@
+cmake_minimum_required(VERSION 3.0.0)
+project(openGLTry VERSION 0.1.0)
+
+include(CTest)
+enable_testing()
+
+# find_package(SDL2 REQUIRED)
+# find_package(SDL2_image REQUIRED)
+# include_directories(${SDL2_INCLUDE_DIRS})
+find_package(SFML REQUIRED system graphics window)
+
+add_executable(openGLTry main.cpp)
+# include_directories(${SFML_INCLUDE_DIR})
+target_link_libraries(openGLTry sfml-graphics sfml-window)
+
+set(CPACK_PROJECT_NAME ${PROJECT_NAME})
+set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
+include(CPack)
