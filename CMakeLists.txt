@@ -11,7 +11,10 @@ find_package(SFML REQUIRED system graphics window)
 
 add_executable(openGLTry main.cpp)
 # include_directories(${SFML_INCLUDE_DIR})
-target_link_libraries(openGLTry sfml-graphics sfml-window)
+add_subdirectory(GalacticObjects)
+add_subdirectory(globals)
+# libra
+target_link_libraries(openGLTry sfml-graphics sfml-window displayMode star galacticDrawable)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
