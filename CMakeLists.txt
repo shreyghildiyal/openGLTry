@@ -16,6 +16,27 @@ add_subdirectory(globals)
 # libra
 target_link_libraries(galaxyGame sfml-graphics sfml-window displayMode star galacticDrawable)
 
+# add_custom_command(
+#     TARGET galaxyGame POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} -E copy
+#             ${CMAKE_SOURCE_DIR}/gameData/stars.json
+#             ${CMAKE_CURRENT_BINARY_DIR}/gameData/stars.json)
+
+# add_custom_command(
+#     TARGET galaxyGame POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} -E copy
+#             ${CMAKE_SOURCE_DIR}/gameData/textures.json
+#             ${CMAKE_CURRENT_BINARY_DIR}/gameData/textures.json)
+
+configure_file(${CMAKE_SOURCE_DIR}/gameData/stars.json ${CMAKE_CURRENT_BINARY_DIR}/gameData/stars.json)
+configure_file(${CMAKE_SOURCE_DIR}/gameData/textures.json ${CMAKE_CURRENT_BINARY_DIR}/gameData/textures.json)
+
+add_custom_command(
+    TARGET galaxyGame POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_SOURCE_DIR}/sprites
+            ${CMAKE_CURRENT_BINARY_DIR}/sprites)
+
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)

@@ -10,9 +10,9 @@ protected:
     sf::Vector2f coords;
     sf::Sprite galacticSprite;
     sf::Sprite systemSprite;
-    std::string name;
 public:
     void draw(sf::RenderWindow* window, DisplayMode dispMode);
+    sf::Vector2f getCoords();
 };
 
 #endif

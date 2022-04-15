@@ -9,3 +9,8 @@ void GalacticDrawable::draw(sf::RenderWindow* window, DisplayMode dispMode)
         window->draw(systemSprite);
     }
 }
+
+sf::Vector2f GalacticDrawable::getCoords()
+{
+    return coords;
+}

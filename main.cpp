@@ -17,7 +17,7 @@ int main() {
     // sf::Vector2f vec2(200,200);
     // rect.setPosition(vec2);
     // rect.setFillColor(sf::Color::Red);
-    sf::View dispView(sf::Vector2f(0, 0), sf::Vector2f(windowWidth, windowHeight));
+    sf::View dispView(sf::Vector2f(windowWidth/2, windowHeight/2), sf::Vector2f(windowWidth, windowHeight));
 
     sf::Texture texture;
     if (!texture.loadFromFile(
@@ -52,8 +52,10 @@ int main() {
                 if (evnt.key.code == sf::Keyboard::Space) {
                      std::cout << "switching display mode" << std::endl;
                     if (dispMode == DisplayMode::Galaxy) {
+                        dispView.setCenter(sf::Vector2f(0,0));
                         dispMode = DisplayMode::System;
                     } else {
+                        dispView.setCenter(stars[2]->getCoords());
                         dispMode = DisplayMode::Galaxy;
                     }
                     
@@ -79,6 +81,7 @@ int main() {
                 starIter->second->draw(&window, dispMode);
             }
         } else {
+            
             stars[1]->draw(&window, dispMode);
         }
         
