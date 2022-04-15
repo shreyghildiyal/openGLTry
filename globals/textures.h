@@ -1,3 +1,6 @@
+#ifndef __TEXTURES_H__
+#define __TEXTURES_H__
+
 #include <map>
 #include <SFML/Graphics.hpp>
 
@@ -5,12 +8,16 @@
 class AllTextures {
 
     private:
-    static AllTextures *texturesObject;
     std::map<std::string, sf::Texture*> texturesMap;
+    static AllTextures *texturesObject;
+    static sf::Texture* defaultTexture;
+    
 
     AllTextures();
-    static sf::Texture* getStarTexture();
+    void populateTexturesMap();
 
     public:
     static sf::Texture* getTexture(std::string textureName);
+    
 };
+#endif // __TEXTURES_H__
