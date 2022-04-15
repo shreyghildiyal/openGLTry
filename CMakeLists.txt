@@ -13,8 +13,9 @@ add_executable(galaxyGame main.cpp)
 # include_directories(${SFML_INCLUDE_DIR})
 add_subdirectory(GalacticObjects)
 add_subdirectory(globals)
+add_subdirectory(utils)
 # libra
-target_link_libraries(galaxyGame sfml-graphics sfml-window displayMode star galacticDrawable)
+target_link_libraries(galaxyGame sfml-graphics sfml-window utils displayMode star galacticDrawable)
 
 # add_custom_command(
 #     TARGET galaxyGame POST_BUILD
