@@ -17,7 +17,11 @@ int main() {
     // sf::Vector2f vec2(200,200);
     // rect.setPosition(vec2);
     // rect.setFillColor(sf::Color::Red);
-    sf::View dispView(sf::Vector2f(windowWidth/2, windowHeight/2), sf::Vector2f(windowWidth, windowHeight));
+    sf::View galaxyView(sf::Vector2f(windowWidth/2, windowHeight/2), sf::Vector2f(windowWidth, windowHeight));
+    sf::View systemView(sf::Vector2f(windowWidth/2, windowHeight/2), sf::Vector2f(windowWidth, windowHeight));
+
+    // sf::View activeView = galaxyView;
+    
 
     sf::Texture texture;
     if (!texture.loadFromFile(
@@ -45,17 +49,20 @@ int main() {
                 window.close();
             } else if (evnt.type == sf::Event::Resized) {
                 std::cout << "Resize happened\n";
-                dispView.setSize(sf::Vector2f(evnt.size.width, evnt.size.height));
+                galaxyView.setSize(sf::Vector2f(evnt.size.width, evnt.size.height));
             } else if (evnt.type == sf::Event::KeyPressed) {
                 std::cout << "a key was pressed " << evnt.key.code << std::endl;
                 // evnt.key;
                 if (evnt.key.code == sf::Keyboard::Space) {
                      std::cout << "switching display mode" << std::endl;
                     if (dispMode == DisplayMode::Galaxy) {
-                        dispView.setCenter(sf::Vector2f(0,0));
+                        // galaxyView.setCenter(sf::Vector2f(0,0));
+                        // activeView = galaxyView;
                         dispMode = DisplayMode::System;
                     } else {
-                        dispView.setCenter(stars[2]->getCoords());
+                        // galaxyView.setCenter(stars[2]->getCoords());
+                        // activeView = systemView;
+                        systemView.setCenter(sf::Vector2f(0,0));
                         dispMode = DisplayMode::Galaxy;
                     }
                     
@@ -63,16 +70,25 @@ int main() {
             }
         }
 
-        // if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        //     // std::cout << "setting display mode to galaxy\n";
-        //     dispMode = DisplayMode::Galaxy;
-        // } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        //     // std::cout << "setting display mode to system\n";
-        //     dispMode = DisplayMode::System;
-        // }
+        if (dispMode == DisplayMode::Galaxy) {
+             if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+                galaxyView.setCenter(galaxyView.getCenter() + sf::Vector2f(-5, 0));
+            } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+                galaxyView.setCenter(galaxyView.getCenter() + sf::Vector2f(5, 0));
+            } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+                galaxyView.setCenter(galaxyView.getCenter() + sf::Vector2f(0, -5));
+            } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+                galaxyView.setCenter(galaxyView.getCenter() + sf::Vector2f(0, 5));
+            }
+        }
+       
 
         window.clear();
-        window.setView(dispView);
+        if (dispMode == DisplayMode::Galaxy) {
+            window.setView(galaxyView);
+        } else if (dispMode == DisplayMode::System) {
+            window.setView(systemView);
+        }
         // window.draw(shape);
         // window.draw(rect);
         // window.draw(sprite);
