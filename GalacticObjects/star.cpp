@@ -25,7 +25,10 @@ Star::Star(std::string name, sf::Vector2f coordinates, std::string spriteName) {
     galacticSprite.setPosition(coords);
     galacticSprite.setScale(0.1, 0.1);
 
-    std::cout << "The star objectr seems to have been populated properly\n";
+    std::cout << systemSprite.getPosition().x << "\n";
+    std::cout << galacticSprite.getPosition().x << "\n";
+
+    std::cout << "The star objectr seems to have been populated properly" << name << std::endl;
 }
 
 std::map<int, Star*> Star::loadStars() {
@@ -51,6 +54,7 @@ std::map<int, Star*> Star::loadStars() {
             std::string name = jf[i]["name"];
             std::string spriteName = jf[i]["sprite"];
             Star* star = new Star(name, sf::Vector2f(x, y), spriteName);
+            std::cout << "testing after star creation" << star->galacticSprite.getOrigin().x << std::endl;
             starsmap[id] = star;
         }
     }

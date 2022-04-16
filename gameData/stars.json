@@ -19,5 +19,26 @@
         "x": 25,
         "y": 25,
         "sprite": "planet1"
+    },
+    {
+        "id": 4,
+        "name": "star4",
+        "x": 75,
+        "y": 75,
+        "sprite": "planet1"
+    },
+    {
+        "id": 5,
+        "name": "star5",
+        "x": 80,
+        "y": 75,
+        "sprite": "planet1"
+    },
+    {
+        "id": 6,
+        "name": "star6",
+        "x": 90,
+        "y": 75,
+        "sprite": "planet1"
     }
 ]

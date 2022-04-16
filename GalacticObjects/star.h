@@ -10,6 +10,7 @@ class Star : public GalacticDrawable {
 public:
     Star(std::string name, sf::Vector2f coordinates, std::string spriteName);
     static std::map<int, Star*> loadStars();
+    std::string getName() {return name;};
 };
 
 #endif

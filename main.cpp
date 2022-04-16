@@ -3,18 +3,16 @@
 
 #include "GalacticObjects/star.h"
 #include "globals/displayMode.h"
+#include "gameState/gameState.h"
 #include <map>
 #include "utils/utils.h"
 
 int main() {
     int windowWidth = 600;
     int windowHeight = 600;
-    sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "SFML works!", sf::Style::Titlebar | sf::Style::Close );
 
-    sf::View galaxyView(sf::Vector2f(windowWidth/2, windowHeight/2), sf::Vector2f(windowWidth, windowHeight));
-    sf::View systemView(sf::Vector2f(0, 0), sf::Vector2f(windowWidth, windowHeight));
-
-    std::map<int, Star*> stars = Star::loadStars();
+    GameState gameState(windowWidth, windowHeight);
 
     int count = 0;
 
@@ -31,58 +29,37 @@ int main() {
         while (window.pollEvent(evnt)) {
             if (evnt.type == sf::Event::Closed) {
                 window.close();
-            } else if (evnt.type == sf::Event::Resized) {
-                std::cout << "Resize happened\n";
-                galaxyView.setSize(sf::Vector2f(evnt.size.width, evnt.size.height));
             } else if (evnt.type == sf::Event::KeyPressed) {
-                std::cout << "a key was pressed " << evnt.key.code << std::endl;
-                // evnt.key;
-                if (evnt.key.code == sf::Keyboard::Space) {
-                     std::cout << "switching display mode" << std::endl;
-                    if (dispMode == DisplayMode::Galaxy) {
-                        // galaxyView.setCenter(sf::Vector2f(0,0));
-                        // activeView = galaxyView;
-                        dispMode = DisplayMode::System;
-                    } else {
-                        // galaxyView.setCenter(stars[2]->getCoords());
-                        // activeView = systemView;
-                        systemView.setCenter(sf::Vector2f(0,0));
-                        dispMode = DisplayMode::Galaxy;
-                    }
-                }
-            } else if (evnt.type == sf::Event::MouseButtonPressed) {
-                mouseClickStarted[evnt.mouseButton.button] = true;
-                mouseDownLocation[evnt.mouseButton.button][0] = evnt.mouseButton.x;
-                mouseDownLocation[evnt.mouseButton.button][1] = evnt.mouseButton.y;
-                clickBeingHandled = true;
-            } else if (evnt.type == sf::Event::MouseMoved && clickBeingHandled) {
-                for (int i = 0; i < mouseButtonCount; i++) {
-                    mouseClickStarted[i] = false;
-                }
+                gameState.handleKeyboardEvent(evnt);
+                
+            } else if (evnt.type == sf::Event::MouseButtonPressed || evnt.type == sf::Event::MouseButtonReleased || evnt.type == sf::Event::MouseMoved) {
+                gameState.handleMouseEvent(evnt);
             }
         }
 
-        if (dispMode == DisplayMode::Galaxy) {
-            Utils::moveCamera(&galaxyView, 5);
-        } else if (dispMode == DisplayMode::System) {
-            Utils::moveCamera(&systemView, 5);
-        }
-       
-
         window.clear();
         if (dispMode == DisplayMode::Galaxy) {
-            window.setView(galaxyView);
+            window.setView(gameState.getGalaxyView());
         } else if (dispMode == DisplayMode::System) {
-            window.setView(systemView);
+            window.setView(gameState.getSystemView());
         }
         
         if (dispMode == DisplayMode::Galaxy) {
-            for (std::map<int, Star*>::iterator starIter = stars.begin(); starIter != stars.end(); starIter++) {
+            std::map<int, Star *> tempStars = gameState.getStars();
+            for (std::map<int, Star*>::iterator starIter = tempStars.begin(); starIter != tempStars.end(); starIter++) {
+                // std::cout << "star id from iterator " << starIter->first << std::endl;
+                // if (starIter->second == NULL) {
+                //     std::cout << "one of the star object pointers is pointing to null\n";
+                // } else {
+                //     std::cout << "Drawing star " << starIter->second->getName() << std::endl;
+                // }
+                // std::cout << "checking null " << (starIter->second == NULL) << std::endl;
+                
                 starIter->second->draw(&window, dispMode);
             }
         } else {
             
-            stars[1]->draw(&window, dispMode);
+            gameState.getStars()[1]->draw(&window, dispMode);
         }
         
         window.display();
