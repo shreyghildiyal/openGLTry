@@ -6,6 +6,9 @@
 #include "gameState/gameState.h"
 #include <map>
 #include "utils/utils.h"
+#include <chrono>
+#include <thread>
+
 
 int main() {
     int windowWidth = 600;
@@ -32,8 +35,8 @@ int main() {
             } else if (evnt.type == sf::Event::KeyPressed) {
                 gameState.handleKeyboardEvent(evnt);
                 
-            } else if (evnt.type == sf::Event::MouseButtonPressed || evnt.type == sf::Event::MouseButtonReleased || evnt.type == sf::Event::MouseMoved) {
-                gameState.handleMouseEvent(evnt);
+            } else if (evnt.type == sf::Event::MouseButtonPressed || evnt.type == sf::Event::MouseButtonReleased) {
+                gameState.handleMouseEvent(evnt, &window);
             }
         }
         gameState.handleCameraMovement();
@@ -44,6 +47,8 @@ int main() {
         } else if (gameState.getDispMode() == DisplayMode::System) {
             window.setView(gameState.getSystemView());
         }
+
+        // std::cout << "View set\n";
         
         if (gameState.getDispMode() == DisplayMode::Galaxy) {
             std::map<int, Star *> tempStars = gameState.getStars();
@@ -51,12 +56,17 @@ int main() {
                 starIter->second->draw(&window, gameState.getDispMode());
             }
         } else {
-            gameState.getStars()[1]->draw(&window, gameState.getDispMode());
+            if (gameState.getSelectedStar() != NULL) {
+                gameState.getSelectedStar()->draw(&window, gameState.getDispMode());
+            } else {
+                std::cout << "there is no selected star\n";
+            }
         }
         
         window.display();
        
         count++;
+        // std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 
     return 0;

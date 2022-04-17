@@ -13,6 +13,7 @@ protected:
 public:
     void draw(sf::RenderWindow* window, DisplayMode dispMode);
     sf::Vector2f getCoords();
+    bool inClickArea(sf::Vector2f clickCoord, DisplayMode dispMode, sf::Vector2f cameraCoords);
 };
 
 #endif
