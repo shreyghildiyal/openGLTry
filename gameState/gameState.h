@@ -24,6 +24,6 @@ class GameState {
     DisplayMode getDispMode() {return dispMode;};
     Star* getClickedStar(sf::Vector2f clickCoord);
     Star* getSelectedStar() {return selectedStar;};
-
+    void update();
 };
 #endif // __GAMESTATE_H__

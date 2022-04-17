@@ -12,6 +12,7 @@ GameState::GameState(int windowWidth, int windowHeight) {
     cameraSpeed = 5;
 
     stars = Star::loadStars();
+    Star::createConnections();
     mouseObj = new MouseObj();
 }
 
@@ -73,6 +74,11 @@ Star* GameState::getClickedStar(sf::Vector2f clickCoord)
         }
     }
     return NULL;
+}
+
+void GameState::update()
+{
+    
 }
 
 std::map<int, Star*> GameState::getStars() {
