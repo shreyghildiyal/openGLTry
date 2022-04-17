@@ -20,6 +20,7 @@ class GameState {
     sf::View getGalaxyView();
     sf::View getSystemView();
     std::map<int, Star*> getStars();
+    DisplayMode getDispMode() {return dispMode;};
     
 
 };

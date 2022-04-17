@@ -16,7 +16,7 @@ int main() {
 
     int count = 0;
 
-    DisplayMode dispMode = DisplayMode::Galaxy;
+    // DisplayMode dispMode = DisplayMode::Galaxy;
 
     const int mouseButtonCount = 3;
     bool mouseClickStarted[mouseButtonCount];
@@ -36,30 +36,22 @@ int main() {
                 gameState.handleMouseEvent(evnt);
             }
         }
+        gameState.handleCameraMovement();
 
         window.clear();
-        if (dispMode == DisplayMode::Galaxy) {
+        if (gameState.getDispMode() == DisplayMode::Galaxy) {
             window.setView(gameState.getGalaxyView());
-        } else if (dispMode == DisplayMode::System) {
+        } else if (gameState.getDispMode() == DisplayMode::System) {
             window.setView(gameState.getSystemView());
         }
         
-        if (dispMode == DisplayMode::Galaxy) {
+        if (gameState.getDispMode() == DisplayMode::Galaxy) {
             std::map<int, Star *> tempStars = gameState.getStars();
             for (std::map<int, Star*>::iterator starIter = tempStars.begin(); starIter != tempStars.end(); starIter++) {
-                // std::cout << "star id from iterator " << starIter->first << std::endl;
-                // if (starIter->second == NULL) {
-                //     std::cout << "one of the star object pointers is pointing to null\n";
-                // } else {
-                //     std::cout << "Drawing star " << starIter->second->getName() << std::endl;
-                // }
-                // std::cout << "checking null " << (starIter->second == NULL) << std::endl;
-                
-                starIter->second->draw(&window, dispMode);
+                starIter->second->draw(&window, gameState.getDispMode());
             }
         } else {
-            
-            gameState.getStars()[1]->draw(&window, dispMode);
+            gameState.getStars()[1]->draw(&window, gameState.getDispMode());
         }
         
         window.display();
