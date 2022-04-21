@@ -4,10 +4,11 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
 
-Star::Star(std::string name, sf::Vector2f coordinates, std::string spriteName) {
+Star::Star(std::string name, sf::Vector2f coordinates, std::string spriteName, int id) {
     // sprite
     coords = coordinates;
     this->name = name;
+    this->id = id;
 
 
     sf::Texture* starTexture = AllTextures::getTexture(spriteName);
@@ -35,6 +36,45 @@ void Star::createConnections(std::map<int, Star*> stars) {
     std::cout << "Starting creation of connections\n";
     std::string connectionFile  = "gameData/starConnections.json";
 
+    std::ifstream ifs(connectionFile);
+
+    if (ifs.fail()) {
+        std::cout << "Failed to read textures.json \n";
+        return;
+    }
+
+    nlohmann::json jf = nlohmann::json::parse(ifs);
+
+    if (jf.is_array()) {
+        std::cout << "JF is an array\n";
+        for (int i = 0; i < jf.size(); i++) {
+            nlohmann::json entry = jf[i];
+            int starId1 = entry[0];
+            int starId2 = entry[1];
+            std::cout << "while creating connections found stars " << starId1 << " and " << starId2 << '\n';
+            if (stars.find(starId1) != stars.end() && stars.find(starId2) != stars.end() ) {
+                    stars[starId1]->addNeighbour(starId2, stars[starId2]);
+                    stars[starId2]->addNeighbour(starId1, stars[starId1]);
+            } else {
+                std::cout << "Error creating connection between " << starId1 << " and " << starId2 << '\n';
+            }
+            
+            // int id = jf[i]["id"];
+            // float x = jf[i]["x"];
+            // float y = jf[i]["y"];
+            // std::string name = jf[i]["name"];
+            // std::string spriteName = jf[i]["sprite"];
+            // Star* star = new Star(name, sf::Vector2f(x, y), spriteName);
+            // std::cout << "testing after star creation" << star->galacticSprite.getOrigin().x << std::endl;
+            // starsmap[id] = star;
+        }
+    } else {
+        std::cout << "file " << connectionFile << " doesnt contain an array\n";
+    }
+}
+
+void Star::addNeighbour(int starId, Star* newNeighbour) {
+    neighbours[starId] = newNeighbour;
 }
 
 std::map<int, Star*> Star::loadStars() {
@@ -59,10 +99,36 @@ std::map<int, Star*> Star::loadStars() {
             float y = jf[i]["y"];
             std::string name = jf[i]["name"];
             std::string spriteName = jf[i]["sprite"];
-            Star* star = new Star(name, sf::Vector2f(x, y), spriteName);
+            int starId = jf[i]["id"];
+            Star* star = new Star(name, sf::Vector2f(x, y), spriteName, starId);
             std::cout << "testing after star creation" << star->galacticSprite.getOrigin().x << std::endl;
             starsmap[id] = star;
         }
     }
     return starsmap;
+}
+
+void Star::draw(sf::RenderWindow* window, DisplayMode dispMode)
+{
+    // std::cout << "using the overriden method for star\n";
+    if (dispMode == DisplayMode::Galaxy) {
+        for (std::map<int, Star*>::iterator iter = neighbours.begin(); iter != neighbours.end(); iter++) {
+            // std::cout << "star " << id << " neighbour " << iter->first << '\n';
+            if (iter->first > id) {
+                
+                sf::VertexArray lines(sf::LinesStrip, 2);
+                lines[0].position = coords;
+                lines[0].color = sf::Color::Red;
+                lines[1].position = iter->second->coords;
+                lines[1].color = sf::Color::Red;
+                
+                window->draw(lines);
+
+            }
+        }
+        
+        window->draw(galacticSprite);
+    } else if (dispMode == DisplayMode::System) {
+        window->draw(systemSprite);
+    }
 }

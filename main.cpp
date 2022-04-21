@@ -62,7 +62,7 @@ int main() {
     int windowHeight = 600;
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "SFML works!",
                             sf::Style::Titlebar | sf::Style::Close);
-
+    window.setPosition(sf::Vector2i(200, 200));
     GameState gameState(windowWidth, windowHeight);
 
     int count = 0;

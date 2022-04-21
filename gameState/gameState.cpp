@@ -13,6 +13,12 @@ GameState::GameState(int windowWidth, int windowHeight) {
 
     stars = Star::loadStars();
     Star::createConnections(stars);
+
+    // for (std::map<int, Star*>::iterator starIter = stars.begin(); starIter != stars.end(); starIter++) {
+    //     // starIter->second->draw(window, gameState->getDispMode());
+        
+    // }
+
     mouseObj = new MouseObj();
 }
 

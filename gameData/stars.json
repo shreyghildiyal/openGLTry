@@ -9,7 +9,7 @@
     {
         "id": 2,
         "name": "star2",
-        "x": 50,
+        "x": 250,
         "y": 50,
         "sprite": "planet1"
     },
