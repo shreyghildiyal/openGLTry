@@ -31,6 +31,12 @@ Star::Star(std::string name, sf::Vector2f coordinates, std::string spriteName) {
     std::cout << "The star objectr seems to have been populated properly" << name << std::endl;
 }
 
+void Star::createConnections(std::map<int, Star*> stars) {
+    std::cout << "Starting creation of connections\n";
+    std::string connectionFile  = "gameData/starConnections.json";
+
+}
+
 std::map<int, Star*> Star::loadStars() {
     std::map<int, Star*> starsmap;
     std::cout << "Starting population of stars \n";

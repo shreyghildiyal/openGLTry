@@ -17,7 +17,7 @@ add_subdirectory(utils)
 add_subdirectory(gameState)
 add_subdirectory(input)
 # libra
-target_link_libraries(galaxyGame sfml-graphics sfml-window utils displayMode star galacticDrawable gameState)
+target_link_libraries(galaxyGame sfml-graphics sfml-window utils displayMode galacticObjects gameState)
 
 # add_custom_command(
 #     TARGET galaxyGame POST_BUILD

@@ -12,7 +12,7 @@ GameState::GameState(int windowWidth, int windowHeight) {
     cameraSpeed = 5;
 
     stars = Star::loadStars();
-    Star::createConnections();
+    Star::createConnections(stars);
     mouseObj = new MouseObj();
 }
 
