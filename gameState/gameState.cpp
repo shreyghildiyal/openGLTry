@@ -4,6 +4,7 @@
 
 #include "../globals/displayMode.h"
 #include "../utils/utils.h"
+#include "../GalacticObjects/planet.h"
 
 GameState::GameState(int windowWidth, int windowHeight) {
     dispMode = DisplayMode::Galaxy;
@@ -13,7 +14,7 @@ GameState::GameState(int windowWidth, int windowHeight) {
 
     stars = Star::loadStars();
     Star::createConnections(stars);
-
+    Planet::loadPlanets(stars);
     // for (std::map<int, Star*>::iterator starIter = stars.begin(); starIter != stars.end(); starIter++) {
     //     // starIter->second->draw(window, gameState->getDispMode());
         

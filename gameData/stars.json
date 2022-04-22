@@ -11,13 +11,13 @@
         "name": "star2",
         "x": 250,
         "y": 50,
-        "sprite": "planet1"
+        "sprite": "star"
     },
     {
         "id": 3,
         "name": "star3",
         "x": 25,
         "y": 25,
-        "sprite": "planet1"
+        "sprite": "star"
     }
 ]

@@ -34,6 +34,7 @@ target_link_libraries(galaxyGame sfml-graphics sfml-window utils displayMode gal
 configure_file(${CMAKE_SOURCE_DIR}/gameData/stars.json ${CMAKE_CURRENT_BINARY_DIR}/gameData/stars.json)
 configure_file(${CMAKE_SOURCE_DIR}/gameData/textures.json ${CMAKE_CURRENT_BINARY_DIR}/gameData/textures.json)
 configure_file(${CMAKE_SOURCE_DIR}/gameData/starConnections.json ${CMAKE_CURRENT_BINARY_DIR}/gameData/starConnections.json)
+configure_file(${CMAKE_SOURCE_DIR}/gameData/planets.json ${CMAKE_CURRENT_BINARY_DIR}/gameData/planets.json)
 
 add_custom_command(
     TARGET galaxyGame POST_BUILD

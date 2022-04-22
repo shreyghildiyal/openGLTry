@@ -119,10 +119,13 @@ void Star::draw(sf::RenderWindow* window, DisplayMode dispMode)
 
             }
         }
-        
         window->draw(galacticSprite);
     } else if (dispMode == DisplayMode::System) {
         window->draw(systemSprite);
+        // std::cout << "Number of planets is " << planets.size() << " for star " << id << '\n';
+        for (std::map<int, Planet*>::iterator planetIter = planets.begin(); planetIter != planets.end(); planetIter++) {
+            planetIter->second->draw(window, dispMode);
+        }
     }
 }
 

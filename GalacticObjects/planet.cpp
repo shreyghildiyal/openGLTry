@@ -4,15 +4,17 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include "../globals/textures.h"
+#include <math.h>
 
 
 void Planet::loadPlanets(std::map<int, Star*> starMap) {
+    std::cout << "Starting planet loading\n";
     std::string planestFile = "gameData/planets.json";
 
     std::ifstream ifs(planestFile);
 
     if (ifs.fail()) {
-        std::cout << "Failed to read textures.json \n";
+        std::cout << "Failed to read " << planestFile << "\n";
         return;
     }
 
@@ -21,6 +23,7 @@ void Planet::loadPlanets(std::map<int, Star*> starMap) {
     if (jf.is_array()) {
         std::cout << "JF is an array\n";
         for (int i = 0; i < jf.size(); i++) {
+            std::cout << "Creating a planet\n";
             nlohmann::json entry = jf[i];
             int id = entry["id"];
             std::string name = entry["name"];
@@ -46,13 +49,33 @@ Planet::Planet(int id, std::string name, Star* inStar, int x, int y, std::string
         std::cout << "The planet texture was null\n";
     }
 
-    galacticSprite = sf::Sprite(*planetTexture);
-    galacticSprite.setOrigin(galacticSprite.getTextureRect().width/2, galacticSprite.getTextureRect().height/2);
-    galacticSprite.setPosition(coords);
-    galacticSprite.setScale(0.1, 0.1);
+    systemSprite = sf::Sprite(*planetTexture);
+    systemSprite.setOrigin(systemSprite.getTextureRect().width/2, systemSprite.getTextureRect().height/2);
+    systemSprite.setPosition(coords);
+    systemSprite.setScale(0.1, 0.1);
+
+    orbitRadius = sqrtf(x*x + y*y);
 }
 
 int Planet::getId()
 {
     return id;
+}
+
+void Planet::draw(sf::RenderWindow* window, DisplayMode dispMode)
+{
+    // std::cout << "using the overriden method for planet\n";
+    if (dispMode == DisplayMode::Galaxy) {
+       
+        std::cout << "We should not be drawing planets in galaxy view. Something went wrong\n";
+        // window->draw(galacticSprite);
+    } else if (dispMode == DisplayMode::System) {
+        sf::CircleShape orbit(orbitRadius);
+        orbit.setFillColor(sf::Color::Transparent);
+        orbit.setOutlineColor(sf::Color::White);
+        orbit.setOutlineThickness(1);
+        orbit.setPosition(sf::Vector2f(-orbitRadius, -orbitRadius));
+        window->draw(orbit);
+        window->draw(systemSprite);
+    }
 }

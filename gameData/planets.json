@@ -4,20 +4,23 @@
         "name": "planet1",
         "star": 1,
         "x": 100,
-        "y": 50
+        "y": 50,
+        "sprite": "planet1"
     },
     {
         "id": 2,
         "name": "planet2",
         "star": 1,
         "x": 100,
-        "y": 100
+        "y": 100,
+        "sprite": "planet1"
     },
     {
         "id": 3,
         "name": "planet3",
         "star": 2,
         "x": 100,
-        "y": 50
+        "y": 50,
+        "sprite": "planet1"
     }
 ]
