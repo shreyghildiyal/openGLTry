@@ -14,6 +14,7 @@ class Planet: public GalacticDrawable {
 
     public:
     static void loadPlanets(std::map<int, Star*> starMap); 
-
+    Planet(int id, std::string name, Star* inStar, int x, int y, std::string spriteName);
+    int getId();
 };
 #endif // __PLANET_H__

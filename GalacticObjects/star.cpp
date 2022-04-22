@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <nlohmann/json.hpp>
+#include "planet.h"
 
 Star::Star(std::string name, sf::Vector2f coordinates, std::string spriteName, int id) {
     // sprite
@@ -59,14 +60,6 @@ void Star::createConnections(std::map<int, Star*> stars) {
                 std::cout << "Error creating connection between " << starId1 << " and " << starId2 << '\n';
             }
             
-            // int id = jf[i]["id"];
-            // float x = jf[i]["x"];
-            // float y = jf[i]["y"];
-            // std::string name = jf[i]["name"];
-            // std::string spriteName = jf[i]["sprite"];
-            // Star* star = new Star(name, sf::Vector2f(x, y), spriteName);
-            // std::cout << "testing after star creation" << star->galacticSprite.getOrigin().x << std::endl;
-            // starsmap[id] = star;
         }
     } else {
         std::cout << "file " << connectionFile << " doesnt contain an array\n";
@@ -131,4 +124,9 @@ void Star::draw(sf::RenderWindow* window, DisplayMode dispMode)
     } else if (dispMode == DisplayMode::System) {
         window->draw(systemSprite);
     }
+}
+
+void Star::addPlanet(Planet* planet)
+{
+    planets[planet->getId()] = planet;
 }
