@@ -4,6 +4,7 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
 #include "planet.h"
+#include "../globals/fonts.h"
 
 Star::Star(std::string name, sf::Vector2f coordinates, std::string spriteName, int id) {
     // sprite
@@ -11,6 +12,7 @@ Star::Star(std::string name, sf::Vector2f coordinates, std::string spriteName, i
     this->name = name;
     this->id = id;
 
+    // sf::Font font = *(AllFonts::getFont());
 
     sf::Texture* starTexture = AllTextures::getTexture(spriteName);
     if (starTexture == NULL) {
@@ -22,13 +24,25 @@ Star::Star(std::string name, sf::Vector2f coordinates, std::string spriteName, i
     systemSprite.setPosition(0,0);
     systemSprite.setScale(0.2, 0.2);
 
+    systemNameText = new sf::Text(name, *(AllFonts::getFont()), 20);
+    systemNameText->setFillColor(sf::Color::Green);
+    systemNameText->setPosition(sf::Vector2f(0, 0));
+
     galacticSprite = sf::Sprite(*starTexture);
     galacticSprite.setOrigin(galacticSprite.getTextureRect().width/2, galacticSprite.getTextureRect().height/2);
     galacticSprite.setPosition(coords);
     galacticSprite.setScale(0.1, 0.1);
 
-    std::cout << systemSprite.getPosition().x << "\n";
-    std::cout << galacticSprite.getPosition().x << "\n";
+    galaxyNameText = new sf::Text(name, *(AllFonts::getFont()), 20);
+    galaxyNameText->setFillColor(sf::Color::Green);
+    galaxyNameText->setPosition(sf::Vector2f(0, 0));
+
+    
+    if (galaxyNameText == NULL) {
+        std::cout << "The galaxy name text was NULL\n";
+    }
+
+
 
     std::cout << "The star objectr seems to have been populated properly" << name << std::endl;
 }
@@ -120,8 +134,21 @@ void Star::draw(sf::RenderWindow* window, DisplayMode dispMode)
             }
         }
         window->draw(galacticSprite);
+        if (galaxyNameText == NULL) {
+            std::cout << "The galaxy name text was NULL\n";
+        } else {
+            std::string s = galaxyNameText->getString();
+            std::cout << "The galaxy name text was NOT NULL " << s << "\n";
+        }
+        sf::Text gnt = *galaxyNameText;
+        std::cout << "Created gnt\n";
+        window->draw(gnt);
     } else if (dispMode == DisplayMode::System) {
         window->draw(systemSprite);
+        
+        // std::cout << "Drawing the text\n";
+        window->draw(*systemNameText);
+        // text.setOrigin(text.)
         // std::cout << "Number of planets is " << planets.size() << " for star " << id << '\n';
         for (std::map<int, Planet*>::iterator planetIter = planets.begin(); planetIter != planets.end(); planetIter++) {
             planetIter->second->draw(window, dispMode);

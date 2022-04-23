@@ -9,6 +9,7 @@
 #include "globals/displayMode.h"
 #include "globals/fonts.h"
 #include "utils/utils.h"
+// #include "globals/fonts.h"
 
 void handleInputs(sf::RenderWindow* window, GameState* gameState) {
     sf::Event evnt;
@@ -65,6 +66,7 @@ int main() {
                             sf::Style::Titlebar | sf::Style::Close);
     window.setPosition(sf::Vector2i(200, 200));
     GameState gameState(windowWidth, windowHeight);
+    // AllFonts::loadFonts();
 
     int count = 0;
 

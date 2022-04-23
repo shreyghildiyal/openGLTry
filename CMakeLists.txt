@@ -42,6 +42,12 @@ add_custom_command(
             ${CMAKE_SOURCE_DIR}/sprites
             ${CMAKE_CURRENT_BINARY_DIR}/sprites)
 
+add_custom_command(
+    TARGET galaxyGame POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_SOURCE_DIR}/fonts
+            ${CMAKE_CURRENT_BINARY_DIR}/fonts)
+
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)

@@ -6,7 +6,7 @@
 
 class AllFonts {
 
-    static sf::Font font;
+    static sf::Font* font;
     static const std::string fontFile;
     public:
     static void loadFonts();

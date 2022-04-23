@@ -4,18 +4,22 @@
 #include <iostream>
 
 const std::string AllFonts::fontFile = "fonts/BrassMonoRegular-o2Yz.otf";
+sf::Font* AllFonts::font =  NULL;
 
-void loadFont() {
-    
-
-    sf::Font font;
-    
-}
 void AllFonts::loadFonts()
 {
-    bool success = font.loadFromFile(fontFile);
+    font = new sf::Font();
+    bool success = font->loadFromFile(fontFile);
     if (!success)
     {
         std::cout << "Error loading font from " << fontFile << "\n";
     }
+}
+
+sf::Font* AllFonts::getFont()
+{
+    if (font == NULL) {
+        loadFonts();
+    }
+    return font;
 }
