@@ -7,4 +7,4 @@ FetchContent_MakeAvailable(json)
 add_library(galacticObjects star.h star.cpp galacticDrawable.h galacticDrawable.cpp planet.cpp planet.h)
 # libr
 
-target_link_libraries(galacticObjects PUBLIC textures displayMode nlohmann_json::nlohmann_json)
+target_link_libraries(galacticObjects PUBLIC globals nlohmann_json::nlohmann_json)

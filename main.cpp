@@ -7,6 +7,7 @@
 #include "GalacticObjects/star.h"
 #include "gameState/gameState.h"
 #include "globals/displayMode.h"
+#include "globals/fonts.h"
 #include "utils/utils.h"
 
 void handleInputs(sf::RenderWindow* window, GameState* gameState) {
