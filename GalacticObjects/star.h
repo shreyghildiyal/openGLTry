@@ -21,6 +21,8 @@ public:
     void addNeighbour(int starId, Star* newNeighbour);
     void draw(sf::RenderWindow* window, DisplayMode dispMode);
     void addPlanet(Planet* planet);
+    void initiateGalaxyNameText(std::string name, int size);
+    void initiateSystemNameText(std::string name, int size);
 };
 
 #endif
