@@ -24,9 +24,6 @@ Star::Star(std::string name, sf::Vector2f coordinates, std::string spriteName, i
     systemSprite.setPosition(0,0);
     systemSprite.setScale(0.2, 0.2);
 
-    // systemNameText = new sf::Text(name, *(AllFonts::getFont()), 20);
-    // systemNameText->setFillColor(sf::Color::Green);
-    // systemNameText->setPosition(sf::Vector2f(0, 0));
     initiateSystemNameText(name, 20);
 
     galacticSprite = sf::Sprite(*starTexture);
@@ -34,9 +31,6 @@ Star::Star(std::string name, sf::Vector2f coordinates, std::string spriteName, i
     galacticSprite.setPosition(coords);
     galacticSprite.setScale(0.1, 0.1);
 
-    // galaxyNameText = new sf::Text(name, *(AllFonts::getFont()), 20);
-    // galaxyNameText->setFillColor(sf::Color::Green);
-    // galaxyNameText->setPosition(sf::Vector2f(0, 0));
     initiateGalaxyNameText(name, 20);
 
     
@@ -53,12 +47,18 @@ void Star::initiateGalaxyNameText(std::string name, int size) {
     galaxyNameText  = new sf::Text(name, *(AllFonts::getFont()), size);
     galaxyNameText->setFillColor(sf::Color::Green);
     galaxyNameText->setPosition(sf::Vector2f(0, 0));
+    sf::FloatRect bounds = galacticSprite.getGlobalBounds();
+    sf::Vector2f spriteLoc = galacticSprite.getPosition();
+    galaxyNameText->setPosition(sf::Vector2f(spriteLoc.x - bounds.width/2, spriteLoc.y + bounds.height/2));
 }
 
 void Star::initiateSystemNameText(std::string name, int size) {
     systemNameText  = new sf::Text(name, *(AllFonts::getFont()), size);
     systemNameText->setFillColor(sf::Color::Green);
     systemNameText->setPosition(sf::Vector2f(0, 0));
+    sf::FloatRect bounds = systemSprite.getGlobalBounds();
+    sf::Vector2f spriteLoc = systemSprite.getPosition();
+    systemNameText->setPosition(sf::Vector2f(spriteLoc.x - bounds.width/2, spriteLoc.y + bounds.height/2));
 }
 
 void Star::createConnections(std::map<int, Star*> stars) {
