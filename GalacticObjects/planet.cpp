@@ -54,6 +54,8 @@ Planet::Planet(int id, std::string name, Star* inStar, int x, int y, std::string
     systemSprite.setPosition(coords);
     systemSprite.setScale(0.1, 0.1);
 
+    initiateSystemNameText(name, 19);
+
     orbitRadius = sqrtf(x*x + y*y);
 }
 
@@ -77,5 +79,6 @@ void Planet::draw(sf::RenderWindow* window, DisplayMode dispMode)
         orbit.setPosition(sf::Vector2f(-orbitRadius, -orbitRadius));
         window->draw(orbit);
         window->draw(systemSprite);
+        window->draw(*systemNameText);
     }
 }

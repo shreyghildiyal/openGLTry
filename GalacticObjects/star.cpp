@@ -4,7 +4,7 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
 #include "planet.h"
-#include "../globals/fonts.h"
+// #include "../globals/fonts.h"
 
 Star::Star(std::string name, sf::Vector2f coordinates, std::string spriteName, int id) {
     // sprite
@@ -43,23 +43,7 @@ Star::Star(std::string name, sf::Vector2f coordinates, std::string spriteName, i
     std::cout << "The star objectr seems to have been populated properly" << name << std::endl;
 }
 
-void Star::initiateGalaxyNameText(std::string name, int size) {
-    galaxyNameText  = new sf::Text(name, *(AllFonts::getFont()), size);
-    galaxyNameText->setFillColor(sf::Color::Green);
-    galaxyNameText->setPosition(sf::Vector2f(0, 0));
-    sf::FloatRect bounds = galacticSprite.getGlobalBounds();
-    sf::Vector2f spriteLoc = galacticSprite.getPosition();
-    galaxyNameText->setPosition(sf::Vector2f(spriteLoc.x - bounds.width/2, spriteLoc.y + bounds.height/2));
-}
 
-void Star::initiateSystemNameText(std::string name, int size) {
-    systemNameText  = new sf::Text(name, *(AllFonts::getFont()), size);
-    systemNameText->setFillColor(sf::Color::Green);
-    systemNameText->setPosition(sf::Vector2f(0, 0));
-    sf::FloatRect bounds = systemSprite.getGlobalBounds();
-    sf::Vector2f spriteLoc = systemSprite.getPosition();
-    systemNameText->setPosition(sf::Vector2f(spriteLoc.x - bounds.width/2, spriteLoc.y + bounds.height/2));
-}
 
 void Star::createConnections(std::map<int, Star*> stars) {
     std::cout << "Starting creation of connections\n";

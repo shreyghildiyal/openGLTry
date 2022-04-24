@@ -1,5 +1,6 @@
 #include "galacticDrawable.h"
 #include <iostream>
+#include "../globals/fonts.h"
 
 void GalacticDrawable::draw(sf::RenderWindow* window, DisplayMode dispMode)
 {
@@ -31,4 +32,22 @@ bool GalacticDrawable::inClickArea(sf::Vector2f clickCoord, DisplayMode dispMode
     return sprite.getGlobalBounds().contains(clickCoord);
 
     // return false;
+}
+
+void GalacticDrawable::initiateGalaxyNameText(std::string name, int size) {
+    galaxyNameText  = new sf::Text(name, *(AllFonts::getFont()), size);
+    galaxyNameText->setFillColor(sf::Color::Green);
+    galaxyNameText->setPosition(sf::Vector2f(0, 0));
+    sf::FloatRect bounds = galacticSprite.getGlobalBounds();
+    sf::Vector2f spriteLoc = galacticSprite.getPosition();
+    galaxyNameText->setPosition(sf::Vector2f(spriteLoc.x - bounds.width/2, spriteLoc.y + bounds.height/2));
+}
+
+void GalacticDrawable::initiateSystemNameText(std::string name, int size) {
+    systemNameText  = new sf::Text(name, *(AllFonts::getFont()), size);
+    systemNameText->setFillColor(sf::Color::Green);
+    systemNameText->setPosition(sf::Vector2f(0, 0));
+    sf::FloatRect bounds = systemSprite.getGlobalBounds();
+    sf::Vector2f spriteLoc = systemSprite.getPosition();
+    systemNameText->setPosition(sf::Vector2f(spriteLoc.x - bounds.width/2, spriteLoc.y + bounds.height/2));
 }
