@@ -128,6 +128,11 @@ std::map<int, Star*> Star::loadStars() {
 void Star::draw(sf::RenderWindow* window, DisplayMode dispMode)
 {
     if (dispMode == DisplayMode::Galaxy) {
+
+        if (ownedby != NULL) {
+            window->draw(domainShape);
+        }
+
         for (auto iter = neighbourhoodLines.begin(); iter != neighbourhoodLines.end(); iter++) {
             
              window->draw(*(iter->second));
@@ -154,4 +159,18 @@ void Star::addPlanet(Planet* planet)
 void Star::setEmpire(Empire* emp)
 {
     this->ownedby = emp;
+    sf::Color colour = emp->getColour();
+    initDomainShape(colour);
+    
+}
+
+void Star::initDomainShape(sf::Color colour)
+{
+    colour.a = 100;
+    domainShape.setFillColor(colour);
+    domainShape.setPointCount(4);
+    domainShape.setPoint(0, coords + sf::Vector2f(30, 30));
+    domainShape.setPoint(1, coords + sf::Vector2f(30, -30));
+    domainShape.setPoint(2, coords + sf::Vector2f(-30, -30));
+    domainShape.setPoint(3, coords + sf::Vector2f(-30, 30));
 }

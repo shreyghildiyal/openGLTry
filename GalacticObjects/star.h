@@ -24,6 +24,7 @@ public:
     void draw(sf::RenderWindow* window, DisplayMode dispMode);
     void addPlanet(Planet* planet);
     void setEmpire(Empire* emp);
+    void initDomainShape(sf::Color colour);
 };
 
 #endif

@@ -14,11 +14,12 @@ class Empire {
     std::string name;
     std::map<int, Star*> controlledStars;
     Planet* capital;
-    sf::Color color;
+    sf::Color colour;
 
     public:
     static std::map<int, Empire*> loadEmpires(std::map<int, Star*> stars, std::map<int, Planet*> planets);
     Empire(int id, std::string name, std::map<int, Star*> controlledStars, Planet* capital, sf::Color color);
+    sf::Color getColour();
 };
 
 #endif // __EMPIRE_H__

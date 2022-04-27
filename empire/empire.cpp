@@ -49,5 +49,10 @@ Empire::Empire(int id, std::string name, std::map<int, Star*> controlledStars, P
     this->name = name;
     this->controlledStars = controlledStars;
     this->capital = capital;
-    this->color = color;
+    this->colour = color;
+}
+
+sf::Color Empire::getColour()
+{
+    return colour;
 }
