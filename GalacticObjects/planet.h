@@ -14,7 +14,7 @@ class Planet: public GalacticDrawable {
     float orbitRadius;
 
     public:
-    static void loadPlanets(std::map<int, Star*> starMap); 
+    static std::map<int, Planet*> loadPlanets(std::map<int, Star*> starMap); 
     Planet(int id, std::string name, Star* inStar, int x, int y, std::string spriteName);
     int getId();
     void draw(sf::RenderWindow* window, DisplayMode dispMode);

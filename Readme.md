@@ -26,4 +26,6 @@ The static files are copied over to the build folder and are needed. They are re
 
 ~~Display planet orbit~~
 
-Display star and planet names
+~~Display star and planet names~~
+
+Create empires and let them control stars

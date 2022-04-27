@@ -14,20 +14,17 @@ GameState::GameState(int windowWidth, int windowHeight) {
 
     stars = Star::loadStars();
     Star::createConnections(stars);
-    Planet::loadPlanets(stars);
-    // for (std::map<int, Star*>::iterator starIter = stars.begin(); starIter != stars.end(); starIter++) {
-    //     // starIter->second->draw(window, gameState->getDispMode());
-        
-    // }
-
+    planets = Planet::loadPlanets(stars);
+    empires = Empire::loadEmpires(stars, planets);
+    
     mouseObj = new MouseObj();
 }
 
 void GameState::handleKeyboardEvent(sf::Event evnt) {
-    std::cout << "a key was pressed " << evnt.key.code << std::endl;
+    // std::cout << "a key was pressed " << evnt.key.code << std::endl;
 
     if (evnt.key.code == sf::Keyboard::Space) {
-        std::cout << "switching display mode" << std::endl;
+        // std::cout << "switching display mode" << std::endl;
         if (dispMode == DisplayMode::System) {
             // galaxyView.setCenter(stars[2]->getCoords());
             // activeView = systemView;

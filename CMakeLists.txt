@@ -16,8 +16,9 @@ add_subdirectory(globals)
 add_subdirectory(utils)
 add_subdirectory(gameState)
 add_subdirectory(input)
+add_subdirectory(empire)
 # libra
-target_link_libraries(galaxyGame sfml-graphics sfml-window utils globals galacticObjects gameState)
+target_link_libraries(galaxyGame sfml-graphics sfml-window utils globals galacticObjects gameState empire)
 
 # add_custom_command(
 #     TARGET galaxyGame POST_BUILD
@@ -35,6 +36,7 @@ configure_file(${CMAKE_SOURCE_DIR}/gameData/stars.json ${CMAKE_CURRENT_BINARY_DI
 configure_file(${CMAKE_SOURCE_DIR}/gameData/textures.json ${CMAKE_CURRENT_BINARY_DIR}/gameData/textures.json)
 configure_file(${CMAKE_SOURCE_DIR}/gameData/starConnections.json ${CMAKE_CURRENT_BINARY_DIR}/gameData/starConnections.json)
 configure_file(${CMAKE_SOURCE_DIR}/gameData/planets.json ${CMAKE_CURRENT_BINARY_DIR}/gameData/planets.json)
+configure_file(${CMAKE_SOURCE_DIR}/gameData/empires.json ${CMAKE_CURRENT_BINARY_DIR}/gameData/empires.json)
 
 add_custom_command(
     TARGET galaxyGame POST_BUILD

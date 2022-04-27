@@ -7,7 +7,8 @@
 #include <math.h>
 
 
-void Planet::loadPlanets(std::map<int, Star*> starMap) {
+std::map<int, Planet*> Planet::loadPlanets(std::map<int, Star*> starMap) {
+    std::map<int, Planet*> planets;
     std::cout << "Starting planet loading\n";
     std::string planestFile = "gameData/planets.json";
 
@@ -15,7 +16,7 @@ void Planet::loadPlanets(std::map<int, Star*> starMap) {
 
     if (ifs.fail()) {
         std::cout << "Failed to read " << planestFile << "\n";
-        return;
+        return planets;
     }
 
     nlohmann::json jf = nlohmann::json::parse(ifs);
@@ -34,8 +35,11 @@ void Planet::loadPlanets(std::map<int, Star*> starMap) {
             std::cout << "Creating planet " << name << " in star system " << starId << '\n'; 
             Planet* planet = new Planet(id, name, starMap[starId], x, y, spriteName);
             starMap[starId]->addPlanet(planet);
+            planets[id] = planet;
         }
     }
+
+    return planets;
 }
 
 Planet::Planet(int id, std::string name, Star* inStar, int x, int y, std::string spriteName) {

@@ -60,11 +60,11 @@ void render(sf::RenderWindow* window, GameState* gameState) {
 void update(sf::RenderWindow* window, GameState* gameState, sf::Time dt) {}
 
 int main() {
-    int windowWidth = 600;
+    int windowWidth = 800;
     int windowHeight = 600;
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "SFML works!",
                             sf::Style::Titlebar | sf::Style::Close);
-    window.setPosition(sf::Vector2i(200, 200));
+    window.setPosition(sf::Vector2i(300, 200));
     GameState gameState(windowWidth, windowHeight);
     // AllFonts::loadFonts();
 

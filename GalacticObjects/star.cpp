@@ -4,6 +4,7 @@
 #include <fstream>
 #include <nlohmann/json.hpp>
 #include "planet.h"
+#include "../empire/empire.h"
 // #include "../globals/fonts.h"
 
 Star::Star(std::string name, sf::Vector2f coordinates, std::string spriteName, int id) {
@@ -80,6 +81,17 @@ void Star::createConnections(std::map<int, Star*> stars) {
 
 void Star::addNeighbour(int starId, Star* newNeighbour) {
     neighbours[starId] = newNeighbour;
+    if (starId > id) {
+        sf::VertexArray* line = new sf::VertexArray(sf::LineStrip, 2);
+        sf::VertexArray line2(sf::LineStrip, 2);
+        // line2[0].color
+        (*line)[0].position = coords;
+        (*line)[0].color = sf::Color::Red;
+        (*line)[1].position = newNeighbour->coords;
+        (*line)[1].color = sf::Color::Red;
+        neighbourhoodLines[starId] = line;
+    }
+    
 }
 
 std::map<int, Star*> Star::loadStars() {
@@ -115,24 +127,12 @@ std::map<int, Star*> Star::loadStars() {
 
 void Star::draw(sf::RenderWindow* window, DisplayMode dispMode)
 {
-    // std::cout << "using the overriden method for star\n";
     if (dispMode == DisplayMode::Galaxy) {
-        for (std::map<int, Star*>::iterator iter = neighbours.begin(); iter != neighbours.end(); iter++) {
-            // std::cout << "star " << id << " neighbour " << iter->first << '\n';
-            if (iter->first > id) {
-                
-                sf::VertexArray lines(sf::LinesStrip, 2);
-                lines[0].position = coords;
-                lines[0].color = sf::Color::Red;
-                lines[1].position = iter->second->coords;
-                lines[1].color = sf::Color::Red;
-                
-                window->draw(lines);
-
-            }
+        for (auto iter = neighbourhoodLines.begin(); iter != neighbourhoodLines.end(); iter++) {
+            
+             window->draw(*(iter->second));
         }
         window->draw(galacticSprite);
-        
         window->draw(*galaxyNameText);
     } else if (dispMode == DisplayMode::System) {
         window->draw(systemSprite);
@@ -149,4 +149,9 @@ void Star::draw(sf::RenderWindow* window, DisplayMode dispMode)
 void Star::addPlanet(Planet* planet)
 {
     planets[planet->getId()] = planet;
+}
+
+void Star::setEmpire(Empire* emp)
+{
+    this->ownedby = emp;
 }

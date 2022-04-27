@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "../GalacticObjects/star.h"
 #include "../input/mouseObj.h"
+#include "../empire/empire.h"
 
 class GameState {
     sf::View galaxyView;
@@ -11,8 +12,10 @@ class GameState {
     DisplayMode dispMode;
     float cameraSpeed;
     std::map<int, Star*> stars;
+    std::map<int, Planet*> planets;
     MouseObj* mouseObj;
     Star* selectedStar;
+    std::map<int, Empire*> empires;
     public:
     GameState(int windowWidth, int windowHeight);
     void handleKeyboardEvent(sf::Event);
