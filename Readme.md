@@ -28,4 +28,8 @@ The static files are copied over to the build folder and are needed. They are re
 
 ~~Display star and planet names~~
 
-Create empires and let them control stars
+~~Create empires and let them control stars~~
+
+Add a tick counter
+
+Create population

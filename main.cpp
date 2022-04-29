@@ -46,6 +46,7 @@ void render(sf::RenderWindow* window, GameState* gameState) {
         for (std::map<int, Star*>::iterator starIter = tempStars.begin(); starIter != tempStars.end(); starIter++) {
             starIter->second->draw(window, gameState->getDispMode());
         }
+        gameState->drawTickNumber(window);
     } else {
         if (gameState->getSelectedStar() != NULL) {
             gameState->getSelectedStar()->draw(window, gameState->getDispMode());
@@ -57,7 +58,7 @@ void render(sf::RenderWindow* window, GameState* gameState) {
     window->display();
 }
 
-void update(sf::RenderWindow* window, GameState* gameState, sf::Time dt) {}
+void update(sf::RenderWindow* window, GameState* gameState, sf::Time dt) { gameState->update(dt); }
 
 int main() {
     int windowWidth = 800;
