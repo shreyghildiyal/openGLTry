@@ -47,12 +47,13 @@ void render(sf::RenderWindow* window, GameState* gameState) {
             starIter->second->draw(window, gameState->getDispMode());
         }
         gameState->drawTickNumber(window);
-    } else {
+    } else if (gameState->getDispMode() == DisplayMode::System) {
         if (gameState->getSelectedStar() != NULL) {
             gameState->getSelectedStar()->draw(window, gameState->getDispMode());
         } else {
             std::cout << "there is no selected star\n";
         }
+        gameState->drawTickNumber(window);
     }
 
     window->display();

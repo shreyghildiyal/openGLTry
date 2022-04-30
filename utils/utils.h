@@ -4,8 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 class Utils {
-
-public:
-    static void moveCamera(sf::View* view, float speed);
+   public:
+    static bool moveCamera(sf::View* view, float speed);
 };
-#endif // __UTILS_H__
+#endif  // __UTILS_H__

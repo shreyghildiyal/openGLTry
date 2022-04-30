@@ -25,6 +25,7 @@ GameState::GameState(int windowWidth, int windowHeight) {
     gameSpeedMultiplier = 1;
     deltaTime = sf::Time::Zero;
     initiateTickNumberText(28, windowWidth);
+    viewTransformChanged = true;
 }
 
 void GameState::handleKeyboardEvent(sf::Event evnt) {
@@ -34,7 +35,8 @@ void GameState::handleKeyboardEvent(sf::Event evnt) {
         if (dispMode == DisplayMode::System) {
             systemView.setCenter(sf::Vector2f(0, 0));
             dispMode = DisplayMode::Galaxy;
-            setNewTickNumberTextPosition(galaxyView);
+            // setNewTickNumberTextPosition(galaxyView);
+            viewTransformChanged = true;
         }
     }
 }
@@ -58,6 +60,7 @@ void GameState::handleMouseEvent(sf::Event evnt, sf::RenderWindow* window) {
                     if (clickedStar != NULL) {
                         selectedStar = clickedStar;
                         dispMode = DisplayMode::System;
+                        viewTransformChanged = true;
                     }
                 }
             }
@@ -67,11 +70,16 @@ void GameState::handleMouseEvent(sf::Event evnt, sf::RenderWindow* window) {
 
 void GameState::handleCameraMovement() {
     if (dispMode == DisplayMode::Galaxy) {
-        Utils::moveCamera(&galaxyView, cameraSpeed);
-        setNewTickNumberTextPosition(galaxyView);
+        bool moved = Utils::moveCamera(&galaxyView, cameraSpeed);
+        if (moved) {
+            viewTransformChanged = true;
+        }
     } else if (dispMode == DisplayMode::System) {
-        Utils::moveCamera(&systemView, cameraSpeed);
-        setNewTickNumberTextPosition(galaxyView);
+        bool moved = Utils::moveCamera(&systemView, cameraSpeed);
+        if (moved) {
+            std::cout << "camera moved in system view\n";
+            viewTransformChanged = true;
+        }
     }
 }
 
@@ -98,6 +106,9 @@ void GameState::update(sf::Time dt) {
 
 void GameState::drawTickNumber(sf::RenderWindow* window) {
     tickNumberText->setString(std::to_string(tickNumber));
+    if (viewTransformChanged) {
+        setNewTickNumberTextPosition(window);
+    }
     window->draw(*tickNumberText);
 }
 
@@ -106,8 +117,24 @@ std::map<int, Star*> GameState::getStars() { return stars; }
 void GameState::initiateTickNumberText(int size, int windowWidth) {
     tickNumberText = new sf::Text("", *(AllFonts::getFont()), size);
     tickNumberText->setFillColor(sf::Color::Green);
-    tickNumberText->setPosition(sf::Vector2f(0, 0));
+    // tickNumberText->setPosition(sf::Vector2f(0, 0));
     // sf::FloatRect bounds = galacticSprite.getGlobalBounds();
     // sf::Vector2f spriteLoc = galacticSprite.getPosition();
-    tickNumberText->setPosition(sf::Vector2f(windowWidth - 50, 0));
+    // tickNumberText->setPosition(sf::Vector2f(windowWidth - 50, 0));
+}
+
+void GameState::setNewTickNumberTextPosition(sf::RenderWindow* window) {
+    int textWidth = tickNumberText->getGlobalBounds().width;
+    int newX = window->getSize().x - (textWidth + 50);
+    int newY = 20;
+
+    sf::Vector2f newCoords = window->mapPixelToCoords(sf::Vector2i(newX, newY));
+
+    tickNumberText->setPosition(newCoords);
+    // if (dispMode == DisplayMode::System) {
+    std::cout << "new textPosition " << newCoords.x << "," << newCoords.y << '\n';
+    // std::cout << "view center " << view.getCenter().x << "," << view.getCenter().y << '\n';
+    // std::cout << "view size " << view.getSize().x << "," << view.getSize().y << '\n';
+    // }
+    viewTransformChanged = false;
 }

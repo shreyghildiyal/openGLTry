@@ -24,6 +24,8 @@ class GameState {
     sf::Time deltaTime;
     sf::Text* tickNumberText;
 
+    bool viewTransformChanged;
+
    public:
     GameState(int windowWidth, int windowHeight);
     void handleKeyboardEvent(sf::Event);
@@ -38,5 +40,6 @@ class GameState {
     void update(sf::Time dt);
     void drawTickNumber(sf::RenderWindow* window);
     void initiateTickNumberText(int size, int windowWidth);
+    void setNewTickNumberTextPosition(sf::RenderWindow* window);
 };
 #endif  // __GAMESTATE_H__
