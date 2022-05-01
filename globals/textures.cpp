@@ -8,7 +8,6 @@ AllTextures* AllTextures::texturesObject = NULL;
 sf::Texture* AllTextures::defaultTexture = NULL;
 
 sf::Texture* AllTextures::getTexture(std::string textureName) {
-    
     if (texturesObject == NULL) {
         texturesObject = new AllTextures();
     }
@@ -17,19 +16,17 @@ sf::Texture* AllTextures::getTexture(std::string textureName) {
     } else {
         return defaultTexture;
     }
-    
 }
 
 void AllTextures::populateTexturesMap() {
     // texturesObject->texturesMap = std::map<std::string, sf::Texture *>();
     std::cout << "Starting population of textures in map \n";
-    std::string texturesConfigFile =
-        "gameData/textures.json";  // change to avoid hardcoding
+    std::string texturesConfigFile = "staticFiles/gameData/textures.json";  // change to avoid hardcoding
 
     std::ifstream ifs(texturesConfigFile);
 
     if (ifs.fail()) {
-        std::cout << "Failed to read textures.json \n";
+        std::cout << "Failed to read textures \n";
         return;
     }
     nlohmann::json jf = nlohmann::json::parse(ifs);
@@ -39,7 +36,7 @@ void AllTextures::populateTexturesMap() {
         for (nlohmann::detail::iter_impl<nlohmann::json> iter = jf.begin(); iter != jf.end(); iter++) {
             std::cout << "using the iterator\n";
             std::string path = iter.value();
-            std::cout << "path " << path << "\n"; 
+            std::cout << "path " << path << "\n";
             sf::Texture* texture = new sf::Texture();
             if (texture->loadFromFile(path)) {
                 texturesMap[iter.key()] = texture;
@@ -50,6 +47,5 @@ void AllTextures::populateTexturesMap() {
     }
     // defaultTexture = new sf::Texture();
 }
-
 
 AllTextures::AllTextures() { populateTexturesMap(); }

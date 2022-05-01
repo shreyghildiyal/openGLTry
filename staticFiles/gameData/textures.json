@@ -1,0 +1,5 @@
+{
+    "star": "staticFiles/sprites/pause.png",
+    "planet1": "staticFiles/sprites/planet1.png",
+    "triangle": "staticFiles/sprites/play.png"
+}

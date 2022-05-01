@@ -33,6 +33,11 @@ void handleInputs(sf::RenderWindow* window, GameState* gameState) {
     // }
 }
 
+void renderUI(sf::RenderWindow* window, GameState* gameState) {
+    gameState->drawTickNumber(window);
+    gameState->drawGameSpeedButtons(window);
+}
+
 void render(sf::RenderWindow* window, GameState* gameState) {
     window->clear();
     if (gameState->getDispMode() == DisplayMode::Galaxy) {
@@ -46,15 +51,16 @@ void render(sf::RenderWindow* window, GameState* gameState) {
         for (std::map<int, Star*>::iterator starIter = tempStars.begin(); starIter != tempStars.end(); starIter++) {
             starIter->second->draw(window, gameState->getDispMode());
         }
-        gameState->drawTickNumber(window);
+
     } else if (gameState->getDispMode() == DisplayMode::System) {
         if (gameState->getSelectedStar() != NULL) {
             gameState->getSelectedStar()->draw(window, gameState->getDispMode());
         } else {
             std::cout << "there is no selected star\n";
         }
-        gameState->drawTickNumber(window);
     }
+
+    renderUI(window, gameState);
 
     window->display();
 }

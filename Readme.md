@@ -30,6 +30,8 @@ The static files are copied over to the build folder and are needed. They are re
 
 ~~Create empires and let them control stars~~
 
-Add a tick counter
+~~Add a tick counter~~
+
+Add buttons to control game speed
 
 Create population

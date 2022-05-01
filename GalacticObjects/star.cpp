@@ -45,12 +45,12 @@ Star::Star(std::string name, sf::Vector2f coordinates, std::string spriteName, i
 
 void Star::createConnections(std::map<int, Star*> stars) {
     std::cout << "Starting creation of connections\n";
-    std::string connectionFile = "gameData/starConnections.json";
+    std::string connectionFile = "staticFiles/gameData/starConnections.json";
 
     std::ifstream ifs(connectionFile);
 
     if (ifs.fail()) {
-        std::cout << "Failed to read textures.json \n";
+        std::cout << "Failed to read star connections \n";
         return;
     }
 
@@ -92,12 +92,12 @@ void Star::addNeighbour(int starId, Star* newNeighbour) {
 std::map<int, Star*> Star::loadStars() {
     std::map<int, Star*> starsmap;
     std::cout << "Starting population of stars \n";
-    std::string starsFile = "gameData/stars.json";  // change to avoid hardcoding
+    std::string starsFile = "staticFiles/gameData/stars.json";  // change to avoid hardcoding
 
     std::ifstream ifs(starsFile);
 
     if (ifs.fail()) {
-        std::cout << "Failed to read textures.json \n";
+        std::cout << "Failed to read stars \n";
         return starsmap;
     }
     nlohmann::json jf = nlohmann::json::parse(ifs);

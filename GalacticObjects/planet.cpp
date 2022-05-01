@@ -10,7 +10,7 @@
 std::map<int, Planet*> Planet::loadPlanets(std::map<int, Star*> starMap) {
     std::map<int, Planet*> planets;
     std::cout << "Starting planet loading\n";
-    std::string planestFile = "gameData/planets.json";
+    std::string planestFile = "staticFiles/gameData/planets.json";
 
     std::ifstream ifs(planestFile);
 

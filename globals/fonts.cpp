@@ -1,23 +1,20 @@
 #include "fonts.h"
-#include <string>
 
 #include <iostream>
+#include <string>
 
-const std::string AllFonts::fontFile = "fonts/BrassMonoRegular-o2Yz.otf";
-sf::Font* AllFonts::font =  NULL;
+const std::string AllFonts::fontFile = "staticFiles/fonts/BrassMonoRegular-o2Yz.otf";
+sf::Font* AllFonts::font = NULL;
 
-void AllFonts::loadFonts()
-{
+void AllFonts::loadFonts() {
     font = new sf::Font();
     bool success = font->loadFromFile(fontFile);
-    if (!success)
-    {
+    if (!success) {
         std::cout << "Error loading font from " << fontFile << "\n";
     }
 }
 
-sf::Font* AllFonts::getFont()
-{
+sf::Font* AllFonts::getFont() {
     if (font == NULL) {
         loadFonts();
     }

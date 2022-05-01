@@ -41,5 +41,6 @@ class GameState {
     void drawTickNumber(sf::RenderWindow* window);
     void initiateTickNumberText(int size, int windowWidth);
     void setNewTickNumberTextPosition(sf::RenderWindow* window);
+    void drawGameSpeedButtons(sf::RenderWindow* window);
 };
 #endif  // __GAMESTATE_H__

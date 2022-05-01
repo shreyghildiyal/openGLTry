@@ -138,3 +138,5 @@ void GameState::setNewTickNumberTextPosition(sf::RenderWindow* window) {
     // }
     viewTransformChanged = false;
 }
+
+void GameState::drawGameSpeedButtons(sf::RenderWindow* window) {}
